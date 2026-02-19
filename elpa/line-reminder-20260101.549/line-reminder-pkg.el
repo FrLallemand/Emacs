@@ -1,0 +1,13 @@
+;; -*- no-byte-compile: t; lexical-binding: nil -*-
+(define-package "line-reminder" "20260101.549"
+  "Line annotation for changed and saved lines."
+  '((emacs         "25.1")
+    (fringe-helper "1.0.1")
+    (ov            "1.0.6")
+    (ht            "2.0"))
+  :url "https://github.com/emacs-vs/line-reminder"
+  :commit "4e0170c9e3ed9b41e13bd3a9bcaa6937bae58e40"
+  :revdesc "4e0170c9e3ed"
+  :keywords '("convenience" "annotation")
+  :authors '(("Jen-Chieh" . "jcs090218@gmail.com"))
+  :maintainers '(("Jen-Chieh" . "jcs090218@gmail.com")))

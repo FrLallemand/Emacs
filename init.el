@@ -19,6 +19,10 @@
 ;; enable Monokai theme
 (load-theme 'monokai t)
 
+;; No sound
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
 ;; Line annotation for changed and saved lines.
 (global-line-reminder-mode t)
 (setq line-reminder-show-option 'indicators)
@@ -27,6 +31,22 @@
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq dashboard-startup-banner 'logo)
+
+;; Show hidden files on speedbar
+(require 'sr-speedbar)
+(setq speedbar-show-unknown-files t)
+(setq sr-speedbar-right-side nil)
+
+(defun toggle-speedbar ()
+  "Toggle the speedbar and focus it's buffer."
+  (interactive)
+  (sr-speedbar-toggle)
+;  (when (get-buffer-window "*sr-speedbar*")
+    (sr-speedbar-select-window)
+ ;   )
+  )
+
+(global-set-key "\C-n" 'toggle-speedbar)
 
 ;; Highlight the current line when scrolling
 (beacon-mode 1)
@@ -44,12 +64,15 @@
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
+
 ;; if you use typescript-mode
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
+;;(add-hook 'typescript-mode-hook #'setup-tide-mode)
 ;; if you use treesitter based typescript-ts-mode (emacs 29+)
 (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+(add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
+
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
 
 (require 'prettier-js)
 (defun maybe-use-prettier ()
@@ -59,6 +82,7 @@
 (add-hook 'js-ts-mode-hook 'maybe-use-prettier)
 (add-hook 'typescript-mode-hook 'maybe-use-prettier)
 (add-hook 'typescript-ts-mode-hook 'maybe-use-prettier)
+(add-hook 'tsx-mode-hook 'maybe-use-prettier)
 
 
 (custom-set-variables
@@ -66,7 +90,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(beacon dashboard)))
+ '(package-selected-packages '(beacon company dashboard sr-speedbar)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
